@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>{{ page.title }} - {{ site.title }}</title>
+    {% include style.html %}
+  </head>
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      {% include header.html %}
+      <div class="dropdown-container">
+        <div class="dropdown tsd">
+          <button id="tsmenu" class="dropbtn tsd">TX▾</button>
+          <div class="dropdown-content tsd">
+            {% include menus/dropdown-ts.html %}
+          </div>
+        </div>
+        <div class="dropdown dsd">
+          <button id="dsmenu" class="dropbtn dsd">DX▾</button>
+          <div class="dropdown-content dsd">
+            {% include menus/dropdown-ds.html %}
+          </div>
+        </div>
+      </div>
+      <main class="mdl-layout__content">
+        {{ content }}
+        {% include footer.html %}
+      </main>
+    </div>
+  </body>
+  {% include gtag.html %}
+  {% include libs.html %}
+</html>

@@ -1,0 +1,48 @@
+commondir = ./common
+book_json_targets_jekyll_find = $(shell find common/book-json -type f -name '*raw.json')
+book_json_targets_jekyll = $(addprefix _data/,$(notdir $(book_json_targets_jekyll_find:-raw.json=.json)))
+
+.PHONY: _includes/common _includes/faux site-all generate-pages site-local
+
+site-local: versioned-html faux _includes/common _includes/faux assets/figures assets/source generate-pages generate-menus $(book_json_targets_jekyll)
+
+site-all: versioned-html faux _includes/common _includes/faux assets/figures assets/source generate-pages $(book_json_targets_jekyll) jekyll site
+
+include $(commondir)/common.mk # versioned here, builds from source.md
+
+faux: $(book_json_targets)
+	python generate-faux-sources.py
+
+apocrypha_rm: # so apocrypha.json is fresh every html build
+	rm -f $(apocrypha_json)
+
+_includes/common: $(commondir)/versioned # copy over built index.html files
+	rsync -a --delete --include '*/' --include '*index.html' --exclude '*' $(commondir)/versioned/ _includes/common/
+
+_includes/faux: $(commondir)/faux # copy over built index.html files
+	rsync -a --delete --include '*/' --include '*index.html' --exclude '*' $(commondir)/faux/ _includes/faux/
+
+assets/figures: _includes/common # copy over figure files
+	rsync -a --include '*/' --include '*.svg' --include '*.jpg' --include '*.png' --exclude '*' $(commondir)/figures/ assets/figures/
+
+assets/source: _includes/common # copy over figure files in source
+	rsync -a --include '*/' --include '*.svg' --include '*.jpg' --include '*.png' --exclude '*' source/ assets/source/
+
+$(book_json_targets_jekyll): $(book_json_targets) # copy over book-processed.json data
+	rsync -a --update -u $< $@
+
+generate-pages: _includes/common _includes/faux # generate jekyll pages that include index.html files
+	python generate-pages.py
+
+generate-menus: $(commondir)/versions-inherited-flat.json # generate jekyll pages that include index.html files
+	python generate-menus.py
+
+jekyll: generate-pages
+	bundle exec jekyll build
+
+site: jekyll
+	cd _site && \
+	git add -A && \
+	git commit -m 'auto-commit' && \
+	git pull && \
+	git push

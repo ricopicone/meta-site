@@ -1,0 +1,30 @@
+{
+    "files":{
+        "../.gitignore": ".gitignore",
+        "../_includes/footer.html": "_includes/footer.html",
+        "../_includes/header.html": "_includes/header.html",
+        "../_includes/libs.html": "_includes/libs.html",
+        "../_includes/style.html": "_includes/style.html",
+        "../_template-apocrypha.md": "_template-apocrypha.md",
+        "../_template-external-url.md": "_template-external-url.md",
+        "../_template.md": "_template.md",
+        "../404.html": "404.html",
+        "../assets/css/pygments.css": "assets/css/pygments.css",
+        "../assets/css/style.scss": "assets/css/style.scss",
+        "../assets/js/mathjax_config.js": "assets/js/mathjax_config.js",
+        "../assets/js/versioning.js": "assets/js/versioning.js",
+        "../Gemfile": "Gemfile",
+        "../Gemfile.lock": "Gemfile.lock",
+        "../generate-faux-sources.py": "generate-faux-sources.py",
+        "../generate-menus.py": "generate-menus.py",
+        "../generate-pages.py": "generate-pages.py",
+        "../Makefile": "Makefile",
+        "../requirements.txt": "requirements.txt"
+    },
+    "directories":{
+        "../_layouts": "_layouts",
+        "../assets/css/fa" : "assets/css/fa",
+        "../assets/css/webfonts" : "assets/css/webfonts",
+        "../scripts": "scripts"
+    }
+}
