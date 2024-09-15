@@ -674,7 +674,7 @@ div.definition {
   padding-bottom: 56.25%;
 }
 
-.video-container {
+.videopdf-container {
   z-index: 10;
 	// position: -webkit-sticky !important; // Safari
 	// position: sticky !important; // Not working
@@ -689,7 +689,7 @@ div.definition {
 	height: 0;
 }
 
-.video-container iframe {
+.videopdf-container iframe {
   position: absolute;
   width: 95%;
   height: 100%;
@@ -702,7 +702,7 @@ div.definition {
   padding-bottom: 15px;
 }
 
-.video-container button {
+.videopdf-container button {
   position: relative;
   display: inline-block;
   margin: 0;
@@ -711,14 +711,14 @@ div.definition {
   border: 0 solid #000;
 }
 
-.hiddenvideo-container button {
+.hiddenvideopdf-container button {
   margin-left: calc(100% - 40px);
 }
 
 .button1 {
   /*z-index: 5;*/
   position: absolute;
-  display:inline-block;
+  display: inline-block;
   /*padding:0.35em 1.2em;*/
   /*border:0.1em solid #000;*/
   width: 36px;
@@ -739,7 +739,7 @@ div.definition {
 }
 
 .button1:hover {
-  filter: invert(100%);
+  filter: invert(75%) sepia(93%);
 }
 
 .button1 .video-hover-text {
@@ -757,10 +757,10 @@ div.definition {
   visibility: visible;
 }
 
-.button1:active {
-  filter: none;
-  fill: var(--blue);
-}
+// .button1:active {
+//   filter: none;
+//   fill: var(--blue);
+// }
 
 // @media all and (max-width:30em){
 //  .button1{
@@ -773,7 +773,7 @@ div.definition {
   height:0 !important;
 }
 
-.hiddenvideo-container {
+.hiddenvideopdf-container {
   box-shadow: 0 0 0 #000;
   padding-bottom: 0;
   height: 1rem;
@@ -816,5 +816,28 @@ a.prev-button {
 }
 
 a.next-button:hover, a.prev-button:hover {
+  filter: invert(50%) sepia(93%);
+}
+
+// PDF button positioned inline-block, under the video button container
+a.pdf-button {
+  display: block;
+  position: fixed;
+  // right: 0;
+  // bottom: 0;
+  // margin: 10px;
+  margin-left: calc(100% - 40px);
+  padding: 0px;
+  // border: 1px solid black;
+  // border-radius: 5px;
+  background-color: none;
+  width: 36px;
+  color: black;
+  font-weight: bold;
+  font-family: "Courier New";
+  cursor: pointer;
+}
+
+a.pdf-button:hover {
   filter: invert(50%) sepia(93%);
 }
