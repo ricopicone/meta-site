@@ -31,6 +31,9 @@ assets/source: _includes/common # copy over figure files in source
 assets/split/partial: common/split/partial # copy over section pdf and jpg files
 	rsync -a --include '*/' --include '*.pdf' --include '*.jpg' --exclude '*' common/split/partial/ assets/split/partial/
 
+common/split/partial: # So that the split/partial directory is created
+	mkdir -p common/split/partial
+
 $(book_json_targets_jekyll): $(book_json_targets) # copy over book-processed.json data
 	rsync -a --update -u $< $@
 
