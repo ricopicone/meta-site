@@ -43,7 +43,8 @@ def texter(data,extraclasses='',pageurl=False,ishome=False):
             extraclasses = extraclasses+' .homepage'
         if 'wherein' not in data:
             data["wherein"] = ''
-        return f'{pounds} {title} {{{iden} .faux {extraclasses} {v} h="{data["hash"]}" wherein="{data["wherein"]}"}}'
+        return f'{pounds} {title} {{{iden} .faux {extraclasses} {v} h="{data["hash"]}"}}'
+        # return f'{pounds} {title} {{{iden} .faux {extraclasses} {v} h="{data["hash"]}" wherein="{data["wherein"]}"}}'
 
 def chapters_of_the_book(w=True):
     hashes = OrderedDict() # hashes of chapters
@@ -251,7 +252,7 @@ for path, data in paths.items():
                 f.write('\n\n'+texter(data))
         else:
             with open(data['source_faux']+'_tmp', 'w') as f:
-                # f.write(preview_text(data))  # Don't include preview text for now
+                f.write(preview_text(data))  # Preview text says that the real content is in the book
                 f.write(texter(data))
                 if data['type'] != 'chapter' and data['type'] != 'appendix' and data['type'] != 'section':
                     f.write(online_resourcer(data))
