@@ -158,6 +158,13 @@ $color-accent: $palette-amber-A700;
     width: fit-content;
   }
 
+  figure > figcaption {
+    font-size: 10pt;
+    color: black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
   details > summary::marker {
     content: "+";
     font-family: "Courier",monospace;
@@ -250,11 +257,15 @@ span.menu-item-last:after {
 // }
 
 a.myurl {
-  font-family: "Courier","Courier New", monospace;
-  color: black;
+  // font-family: "Courier","Courier New", monospace;
+  // color: black;
   text-align: center;
   display: block;
   margin: 0 auto;
+}
+
+a.myurl.inline {
+  display: inline;
 }
 
 div.sourceCode {
@@ -845,4 +856,25 @@ a.pdf-button {
 
 a.pdf-button:hover {
   filter: invert(50%) sepia(93%);
+}
+
+// Problems and Solutions
+
+div.exercise-solution { // Make this invisible
+  display: none;
+}
+
+div.exercise::before {
+  // content from data-problem-num
+  content: "Problem " attr(data-problem-num) " ";
+  font-weight: bold;
+  // run-in header
+  display: inline;
+  margin-right: 5px;
+  font-size: 12pt;
+  color: black;
+}
+
+div.exercise p:first-of-type {
+  display: inline;
 }

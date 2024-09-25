@@ -16,6 +16,9 @@ faux: $(book_json_targets)
 apocrypha_rm: # so apocrypha.json is fresh every html build
 	rm -f $(apocrypha_json)
 
+_includes/common/online-resources-editable: $(commondir)/online-resources-editable # copy over online resources files
+	rsync -a --delete --include '*/' --include '*source.md' --exclude '*' $(commondir)/online-resources-editable/ _includes/common/online-resources-editable/
+
 _includes/common: $(commondir)/versioned # copy over built index.html files
 	rsync -a --delete --include '*/' --include '*index.html' --exclude '*' $(commondir)/versioned/ _includes/common/
 
@@ -39,11 +42,12 @@ $(book_json_targets_jekyll): $(book_json_targets) # copy over book-processed.jso
 
 generate-pages: _includes/common _includes/faux # generate jekyll pages that include index.html files
 	python generate-pages.py
+	$(MAKE) _includes/common/online-resources-editable
 
 generate-menus: $(commondir)/versions-inherited-flat.json # generate jekyll pages that include index.html files
 	python generate-menus.py
 
-jekyll: generate-pages
+jekyll: generate-pages _includes/common/online-resources-editable
 	bundle exec jekyll build
 
 site: jekyll
