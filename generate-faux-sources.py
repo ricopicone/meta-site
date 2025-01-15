@@ -149,7 +149,7 @@ def subsections_of_this_section(data):
                         ahashes[h] = [sh]
     return hashes,ahashes
 
-def preview_text(data):
+def preview_text(data, ed=''):
     if data['type'] == 'chapter' or data['type'] == 'appendix':
         num = data['ch']
     elif data['type'] == 'section':
@@ -160,14 +160,28 @@ def preview_text(data):
         num = data['subsec']
     else:
         num = ''
-    return f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n\
+     # Get book-short-name and url-publisher of this edition of the book
+    if ed:
+        book_short_name = book_defs['book-short-name']
+        publisher = book_defs['editions'][ed]['publisher']
+        url_publisher = book_defs['editions'][ed]['url-publisher']
+        text = f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n\
 This page contains companion resources and an outline for {data["type"]} {num} of the book \
-[**An Introduction to Real-Time Computing for Mechanical Engineers**](/), \
+[**{book_short_name}**](/), \
 and it therefore lacks most of {data["type"]} {num}\'s contents. \
 While some sections of the book are fully available on this site, \
 many are not. \
-Please consider [purchasing a copy from the MIT Press](https://mitpress.mit.edu/9780262548762/an-introduction-to-real-time-computing-for-mechanical-engineers). \
+Please consider [purchasing a copy from {publisher}]({url_publisher}). \
 \n:::\n\n'
+    else:
+        text = f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n\
+This page contains companion resources and an outline for {data["type"]} {num} of \
+[these notes](/), \
+and it therefore lacks most of {data["type"]} {num}\'s contents. \
+While some sections of the notes are fully available on this site, \
+many are not. \
+\n:::\n\n'
+    return text
 
 def online_resourcer(data):
     if data['type'] == 'chapter':
