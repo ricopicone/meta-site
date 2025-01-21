@@ -221,9 +221,26 @@ function toggle_video_visibility(dis) { // onclick revelation
 
 // Hide videopdf-container div if no video or if header has class 'faux'
 document.querySelectorAll("div.videopdf-container").forEach(function(element) {
-	previous_header_element = element.previousElementSibling;
+	// Get the previous header element (h1) of the videopdf-container
+	var previous_sibling = element.previousElementSibling;
+	while (previous_sibling && previous_sibling.tagName != 'H1') {
+		previous_sibling = previous_sibling.previousElementSibling;
+		console.log(previous_sibling);
+	}
+	var previous_header_element = previous_sibling;
+	// Check if the previous header element is a real section and not a faux section
+	console.log(previous_header_element);
+	if (previous_header_element == null) {
+		console.log("No previous header element found");
+	}
+	console.log(previous_header_element.classList);
+	console.log(previous_header_element.classList.contains('real-section'));
 	if (!previous_header_element.classList.contains('real-section') || previous_header_element.classList.contains('faux')) {
+		// Print the previous header element class list
 		element.style.display = 'none';
+	} else {
+		// Print the previous header element class list
+		element.style.display = 'block';
 	}
 });
 
