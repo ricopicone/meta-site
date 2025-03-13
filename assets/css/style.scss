@@ -360,7 +360,7 @@ div.stdout {
 
 .dropdown-content a span {visibility: hidden};
 
-.tsd {
+.vd {
   // right: 25px;
 }
 
@@ -566,7 +566,7 @@ h2[data-0-ch]::after {
 
 // ts and ds tags
 
-.ts-tag, .ds-tag {
+.v-tag, .ts-tag, .ds-tag {
   display: inline-block;
   position: absolute;
   right: 3px;
@@ -589,9 +589,9 @@ h2[data-0-ch]::after {
   // box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
 }
 
-.ds-tag {
-  margin-top: -45px;
-}
+// .ds-tag {
+//   margin-top: -45px;
+// }
 
 // component/part id
 .label {
