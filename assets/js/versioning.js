@@ -105,10 +105,10 @@ function set_v_urlparams(v_dict) {
 	v_filter_page(v_dict);
 }
 
-let v_default = {ts:"T1",ds:null};
-let v_urlparams = get_v_urlparams();
-v_filter_page(v_urlparams);
-span_populate(v_urlparams);
+// let v_default = {ts:"T1",ds:null};
+// let v_urlparams = get_v_urlparams();
+// v_filter_page(v_urlparams);
+// span_populate(v_urlparams);
 
 function v_filter_page(v_dict) {
 	ts = v_dict.ts;
@@ -220,28 +220,53 @@ function toggle_video_visibility(dis) { // onclick revelation
 }
 
 // Hide videopdf-container div if no video or if header has class 'faux'
+// document.querySelectorAll("div.videopdf-container").forEach(function(element) {
+// 	// Get the previous header element (h1) of the videopdf-container
+// 	var previous_sibling = element.previousElementSibling;
+// 	while (previous_sibling && previous_sibling.tagName != 'H1') {
+// 		previous_sibling = previous_sibling.previousElementSibling;
+// 		console.log(previous_sibling);
+// 	}
+// 	var previous_header_element = previous_sibling;
+// 	// Check if the previous header element is a real section and not a faux section
+// 	// console.log(previous_header_element);
+// 	if (previous_header_element == null) {
+// 		console.log("No previous header element found");
+// 	}
+// 	// console.log(previous_header_element.classList);
+// 	// console.log(previous_header_element.classList.contains('real-section'));
+// 	if (previous_header_element == null) {
+// 		element.style.display = 'block';
+// 	} else {
+// 		if (!previous_header_element.classList.contains('real-section') || previous_header_element.classList.contains('faux')) {
+// 			// Print the previous header element class list
+// 			element.style.display = 'none';
+// 		} else {
+// 			// Print the previous header element class list
+// 			element.style.display = 'block';
+// 		}
+// 	}
+// });
+
+// Hide videopdf-container div for sections on chapter pages
 document.querySelectorAll("div.videopdf-container").forEach(function(element) {
 	// Get the previous header element (h1) of the videopdf-container
 	var previous_sibling = element.previousElementSibling;
 	while (previous_sibling && previous_sibling.tagName != 'H1') {
 		previous_sibling = previous_sibling.previousElementSibling;
-		console.log(previous_sibling);
 	}
 	var previous_header_element = previous_sibling;
-	// Check if the previous header element is a real section and not a faux section
-	console.log(previous_header_element);
-	if (previous_header_element == null) {
-		console.log("No previous header element found");
-	}
-	console.log(previous_header_element.classList);
-	console.log(previous_header_element.classList.contains('real-section'));
-	if (!previous_header_element.classList.contains('real-section') || previous_header_element.classList.contains('faux')) {
-		// Print the previous header element class list
-		element.style.display = 'none';
+	// Check if previous header element has class "chapterheader"
+	if (previous_header_element && previous_header_element.classList.contains('chapterheader')) {
+		is_chapter_header = true;
 	} else {
-		// Print the previous header element class list
-		element.style.display = 'block';
-	}
+		is_chapter_header = false;
+	};
+	// Check if this page is a chapter page (div container with class "chapter-page")
+	var chapter_page = document.querySelector("div.chapter-page");
+	if (chapter_page && !is_chapter_header) {
+		element.style.display = 'none';
+	};
 });
 
 // Add a button that expands to a pdf preview from assets/split/partial
