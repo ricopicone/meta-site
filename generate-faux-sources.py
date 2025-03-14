@@ -257,7 +257,7 @@ for path, data in paths.items():
                 f.write('\n\n'+texter(data))
         else:
             with open(data['source_faux']+'_tmp', 'w') as f:
-                f.write(preview_text(data))  # Preview text says that the real content is in the book
+                f.write(preview_text(data, ed=data['ed']))  # Preview text says the real content is in the book
                 f.write(texter(data))
                 if data['type'] != 'chapter' and data['type'] != 'appendix' and data['type'] != 'section':
                     f.write(online_resourcer(data))
