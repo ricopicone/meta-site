@@ -10,6 +10,7 @@
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       {% include header.html %}
       <div class="dropdown-container">
+        {% if site.show_versions_menu %}
         <div class="dropdown v">
           <button id="vmenu" class="dropbtn vd">v ▾</button>
           <div class="dropdown-content vd">
@@ -22,6 +23,7 @@
             {% include menus/dropdown-ds.html %}
           </div>
         </div> -->
+        {% endif %}
         <div class="dropdown">
           <button id="menu" class="dropbtn">Links▾</button>
           {% include links.html %}
