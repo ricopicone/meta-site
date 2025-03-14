@@ -28,14 +28,16 @@ function get_v_urlparams() {
 
 function set_v_menu(v) {
 	const menu = document.getElementById("vmenu");
-	menu.innerHTML = v+"▾";
-	document.querySelectorAll(".dropdown.vd a").forEach(function(element) {
-	    if (element.id == v) {
-	    	element.style.fontWeight = 'bold';
-	    } else {
-		    element.style.fontWeight = 'normal';
-		}
-	});
+	if (menu !== null) {
+		menu.innerHTML = v+"▾";
+		document.querySelectorAll(".dropdown.vd a").forEach(function(element) {
+			if (element.id == v) {
+				element.style.fontWeight = 'bold';
+			} else {
+				element.style.fontWeight = 'normal';
+			}
+		});
+	}
 }
 
 function set_v_tags(ds) {
@@ -190,14 +192,16 @@ document.querySelectorAll("div.videopdf-container").forEach(function(element) {
 	if (previous_header_element == null) {
 		console.log("No previous header element found");
 	}
-	console.log(previous_header_element);
-	console.log(previous_header_element.classList);
-	console.log(!previous_header_element.classList.contains('real-section'));
-	console.log(previous_header_element.classList.contains('faux'));
-	if (!previous_header_element.classList.contains('real-section') || previous_header_element.classList.contains('faux')) {
-		// Print the previous header element class list
-		element.style.display = 'none';
-	};
+	// console.log(previous_header_element);
+	// console.log(previous_header_element.classList);
+	// console.log(!previous_header_element.classList.contains('real-section'));
+	// console.log(previous_header_element.classList.contains('faux'));
+	if (previous_header_element != null) {
+		if (!previous_header_element.classList.contains('real-section') || previous_header_element.classList.contains('faux')) {
+			// Print the previous header element class list
+			element.style.display = 'none';
+		};
+	}
 });
 
 // Add a button that expands to a pdf preview from assets/split/partial
