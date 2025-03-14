@@ -153,7 +153,7 @@ def subsections_of_this_section(data):
                         ahashes[h] = [sh]
     return hashes,ahashes
 
-def preview_text(data):
+def preview_text(data, ed=''):
     if data['type'] == 'chapter' or data['type'] == 'appendix':
         num = data['ch']
     elif data['type'] == 'section':
@@ -164,7 +164,14 @@ def preview_text(data):
         num = data['subsec']
     else:
         num = ''
-    preview_text_config = config['preview_text'].format(type=data['type'], num=num)
+    # Get book-short-name and url-publisher of this edition of the book
+    if ed:
+        book_short_name = book_defs['book-short-name']
+        publisher = book_defs['editions'][ed]['publisher']
+        url_publisher = book_defs['editions'][ed]['url-publisher']
+        preview_text_config = config['preview_text'].format(type=data['type'], num=num, book_short_name=book_short_name, publisher=publisher, url_publisher=url_publisher)
+    else:
+        preview_text_config = config['preview_text'].format(type=data['type'], num=num)
     return f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n{preview_text_config}\n:::\n\n'
 
 def online_resourcer(data):

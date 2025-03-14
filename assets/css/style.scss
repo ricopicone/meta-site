@@ -360,7 +360,7 @@ div.stdout {
 
 .dropdown-content a span {visibility: hidden};
 
-.tsd {
+.vd {
   // right: 25px;
 }
 
@@ -566,7 +566,7 @@ h2[data-0-ch]::after {
 
 // ts and ds tags
 
-.ts-tag, .ds-tag {
+.v-tag, .ts-tag, .ds-tag {
   display: inline-block;
   position: absolute;
   right: 3px;
@@ -589,9 +589,9 @@ h2[data-0-ch]::after {
   // box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
 }
 
-.ds-tag {
-  margin-top: -45px;
-}
+// .ds-tag {
+//   margin-top: -45px;
+// }
 
 // component/part id
 .label {
@@ -877,4 +877,39 @@ div.exercise::before {
 
 div.exercise p:first-of-type {
   display: inline;
+}
+
+// Hide vtag-container divs
+div.vtag-container {
+  display: none;
+}
+
+// Key spans
+span.key:not(:has(span)) {
+  font-size: 10pt;
+  font-family: "Helvetica", "Arial", sans-serif;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+span.key > span.material-icons {
+  font-size: 10pt;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+// Listings
+
+div.listing {
+  padding: 5px;
+  border: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  border-color: #cbcbcb;
+}
+
+div.listing::before {
+  content: "Listing " attr(data-number) ": " attr(data-caption);
 }
