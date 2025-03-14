@@ -10,6 +10,10 @@ import filecmp
 from natsort import natsorted
 from collections import OrderedDict
 
+# Load the _config.yml file
+with open('_config.yml') as f:
+    config = yaml.safe_load(f)
+
 def texter(data,extraclasses='',pageurl=False,ishome=False):
     if data['v-specific'] in ['ts', 'ds', 'both'] and (data['type'] == 'subsection' or data['type'] == 'resource'):
         # Include the whole page for versioned subsections!
@@ -160,14 +164,8 @@ def preview_text(data):
         num = data['subsec']
     else:
         num = ''
-    return f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n\
-This page contains companion resources and an outline for {data["type"]} {num} of the book \
-[**An Introduction to Real-Time Computing for Mechanical Engineers**](/), \
-and it therefore lacks most of {data["type"]} {num}\'s contents. \
-While some sections of the book are fully available on this site, \
-many are not. \
-Please consider [purchasing a copy from the MIT Press](https://mitpress.mit.edu/9780262548762/an-introduction-to-real-time-computing-for-mechanical-engineers). \
-\n:::\n\n'
+    preview_text_config = config['preview_text'].format(type=data['type'], num=num)
+    return f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n{preview_text_config}\n:::\n\n'
 
 def online_resourcer(data):
     if data['type'] == 'chapter':
