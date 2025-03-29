@@ -882,3 +882,39 @@ div.exercise p:first-of-type {
 div.exercise > ol {
   list-style-type: lower-alpha;
 }
+
+// Hide vtag-container divs
+div.vtag-container {
+  display: none;
+}
+
+// Key spans
+span.key:not(:has(span)) {
+  font-size: 10pt;
+  font-family: "Helvetica", "Arial", sans-serif;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+span.key > span.material-icons {
+  font-size: 10pt;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+// Listings
+
+div.listing {
+  padding: 5px;
+  border: solid;
+  border-width: 1px;
+  border-radius: 3px;
+  border-color: #cbcbcb;
+}
+
+div.listing::before {
+  content: "Listing " attr(data-number) ": " attr(data-caption);
+}
+

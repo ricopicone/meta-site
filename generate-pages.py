@@ -9,7 +9,7 @@ import filecmp
 import shutil
 import pathlib
 
-page_layout = 'page'
+page_layout = 'section'
 
 with open('common/book-defs.json') as f:
     book_defs = yaml.safe_load(f)
@@ -34,7 +34,12 @@ for ed,tbl in book.items():
                 if data['type']=='chapter' or data['type']=='appendix' or data['type']=='section' or data['type']=='subsection' or data['type']=='lab' or data['type']=='resource' or data['type']=='exturl':
                     data['index_path'] = path + "/index.md"
                     path_list_new.append(data['index_path'])
-                    data['layout'] = page_layout
+                    if data['type'] == 'chapter' or data['type'] == 'appendix':
+                        data['layout'] = 'chapter'
+                    elif data['type'] == 'section' or data['type'] == 'lab':
+                        data['layout'] = 'section'
+                    else:
+                        data['layout'] = 'page'
                     data['source_reso'] = f"common/online-resources-editable/{data['hash']}/source.md"
                     paths[path] = data # this will overwrite some values when there are multiple editions, but we're only going to use the hash and id
                 else:
@@ -117,7 +122,7 @@ with open("_template-homepage.md") as f:
 data = {}
 data['id'] = ''
 data['hash'] = '0000'
-data['layout'] = page_layout
+data['layout'] = 'page'
 path = path_base # + data['hash']
 home_path = path + "index.md"
 os.makedirs(os.path.dirname(home_path), exist_ok=True)

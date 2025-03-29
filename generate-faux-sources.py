@@ -10,6 +10,10 @@ import filecmp
 from natsort import natsorted
 from collections import OrderedDict
 
+# Load the _config.yml file
+with open('_config.yml') as f:
+    config = yaml.safe_load(f)
+
 def texter(data,extraclasses='',pageurl=False,ishome=False):
     if data['v-specific'] in ['ts', 'ds', 'both'] and (data['type'] == 'subsection' or data['type'] == 'resource'):
         # Include the whole page for versioned subsections!
@@ -160,28 +164,15 @@ def preview_text(data, ed=''):
         num = data['subsec']
     else:
         num = ''
-     # Get book-short-name and url-publisher of this edition of the book
+    # Get book-short-name and url-publisher of this edition of the book
     if ed:
         book_short_name = book_defs['book-short-name']
         publisher = book_defs['editions'][ed]['publisher']
         url_publisher = book_defs['editions'][ed]['url-publisher']
-        text = f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n\
-This page contains companion resources and an outline for {data["type"]} {num} of the book \
-[**{book_short_name}**](/), \
-and it therefore lacks most of {data["type"]} {num}\'s contents. \
-While some sections of the book are fully available on this site, \
-many are not. \
-Please consider [purchasing a copy from {publisher}]({url_publisher}). \
-\n:::\n\n'
+        preview_text_config = config['preview_text'].format(type=data['type'], num=num, book_short_name=book_short_name, publisher=publisher, url_publisher=url_publisher)
     else:
-        text = f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n\
-This page contains companion resources and an outline for {data["type"]} {num} of \
-[these notes](/), \
-and it therefore lacks most of {data["type"]} {num}\'s contents. \
-While some sections of the notes are fully available on this site, \
-many are not. \
-\n:::\n\n'
-    return text
+        preview_text_config = config['preview_text'].format(type=data['type'], num=num)
+    return f'\n\n::: {{ .infobox title="{data["type"]} {num} companion and outline"}}\n{preview_text_config}\n:::\n\n'
 
 def online_resourcer(data):
     if data['type'] == 'chapter':
@@ -266,7 +257,7 @@ for path, data in paths.items():
                 f.write('\n\n'+texter(data))
         else:
             with open(data['source_faux']+'_tmp', 'w') as f:
-                f.write(preview_text(data))  # Preview text says that the real content is in the book
+                f.write(preview_text(data, ed=data['ed']))  # Preview text says the real content is in the book
                 f.write(texter(data))
                 if data['type'] != 'chapter' and data['type'] != 'appendix' and data['type'] != 'section':
                     f.write(online_resourcer(data))
