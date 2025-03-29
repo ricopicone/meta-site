@@ -866,7 +866,7 @@ div.exercise-solution { // Make this invisible
 
 div.exercise::before {
   // content from data-problem-num
-  content: "Problem " attr(data-problem-num) " ";
+  content: "Problem " attr(data-problem-num) " (" attr(data-H) ") ";
   font-weight: bold;
   // run-in header
   display: inline;
@@ -877,4 +877,8 @@ div.exercise::before {
 
 div.exercise p:first-of-type {
   display: inline;
+}
+
+div.exercise > ol {
+  list-style-type: lower-alpha;
 }
